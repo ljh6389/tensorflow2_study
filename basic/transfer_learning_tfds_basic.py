@@ -68,6 +68,7 @@ cls_w_top.compile(
     metrics=['accuracy']
 )
 
+print('================include_top=True model training and eval======================')
 cls_w_top.summary()
 
 cls_w_top.fit(
@@ -75,7 +76,8 @@ cls_w_top.fit(
     epochs=1,
     validation_data=val_batches
 )
-cls_w_top.evaluate(test_batches)
+cls_w_top.evaluate(test_batches, verbose=2)
+print('========================================================================\n')
 
 '''
 keras에서 제공하는 pretrained weight를 사용할 경우 include_top option을 False로 줌을 통해 간단하게 backbone weight만 로드 가능
@@ -95,11 +97,12 @@ cls_wo_top = tf.keras.Sequential([
 ])
 
 cls_wo_top.compile(
-    optimizers=tf.keras.optimizers.RMSprop(lr=1e-4),
+    optimizer=tf.keras.optimizers.RMSprop(lr=1e-4),
     loss=tf.keras.losses.BinaryCrossentropy(from_logits=False),
     metrics=['accuracy']
 )
 
+print('================include_top=False model training and eval======================')
 cls_wo_top.summary()
 
 cls_wo_top.fit(
@@ -108,5 +111,5 @@ cls_wo_top.fit(
     validation_data=val_batches
 )
 
-cls_wo_top.evaluate(test_batches)
-
+cls_wo_top.evaluate(test_batches, verbose=2)
+print('========================================================================\n')
